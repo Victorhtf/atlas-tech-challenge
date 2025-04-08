@@ -1,5 +1,6 @@
 # Technical Challenge
   Passo a passo para inicialização do projeto.
+  Obs: para descrição do desafio leia o arquivo [technicalChallenge.md](./technicalChallenge.md)
 
 ## Execução
 

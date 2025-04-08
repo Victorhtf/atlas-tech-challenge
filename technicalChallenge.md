@@ -33,7 +33,8 @@ Criar uma aplicação para gerenciar frotas e viagens de uma empresa de logísti
     numero: String,
     validade: Date
   },
-  criadoEm: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 ```
@@ -45,7 +46,8 @@ Criar uma aplicação para gerenciar frotas e viagens de uma empresa de logísti
   placa: String,
   tipo: String, // Caminhão, Van, Carro, etc.
   capacidade: Number, // kg, litros etc.
-  criadoEm: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 ```
@@ -60,7 +62,8 @@ Criar uma aplicação para gerenciar frotas e viagens de uma empresa de logísti
   motorista: ObjectId, // referência para Driver
   veiculo: ObjectId,   // referência para Vehicle
   status: String, // Planejada, Em andamento, Concluída, Cancelada
-  criadoEm: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 ```

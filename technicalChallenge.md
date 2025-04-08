@@ -14,7 +14,7 @@ Criar uma aplicação para gerenciar frotas e viagens de uma empresa de logísti
   - Data e hora de partida e previsão de chegada
 - Endpoint para listar viagens por motorista
 - Utilizar MongoDB para persistência
-- Utilizar Redis para cache da listagem de veículos (Opcional-)
+- Utilizar Redis para cache da listagem de veículos (Opcional)
 
 - Frontend (Next.js | React)
   - Tela de listagem de veículos com fitro de placa

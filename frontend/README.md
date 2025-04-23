@@ -1,54 +1,60 @@
-# React + TypeScript + Vite
+# Frota Atlas - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é o frontend da aplicação **Frota Atlas**, desenvolvido em React/Next.js.
 
-Currently, two official plugins are available:
+## Como rodar o projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Clonar o repositório
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/seu-usuario/seu-repo-frontend.git
+cd seu-repo-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Criar o arquivo `.env.local`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Crie um arquivo `.env.local` na raiz do projeto e copie o conteúdo do `.env.local.example`. Atualize as variáveis conforme o endereço e porta do seu backend.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+cp .env.local.example .env.local
 ```
+
+### 3. Instalar as dependências
+
+Recomenda-se instalar as dependências com a flag `--force` ou `--legacy-peer-deps` para evitar problemas de compatibilidade:
+
+```bash
+npm install --force
+# ou
+npm install --legacy-peer-deps
+```
+
+### 4. Rodar a aplicação
+
+```bash
+npm run dev
+```
+
+A aplicação estará disponível em `http://localhost:3000`.
+
+---
+
+## Tecnologias
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Zod](https://zod.dev/)
+- [Axios](https://axios-http.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+## Estrutura
+
+- `pages/` - Rotas e páginas principais
+- `components/` - Componentes reutilizáveis
+- `services/` - Configurações de requisições
+- `lib/` - Funções auxiliares
+
+---
+

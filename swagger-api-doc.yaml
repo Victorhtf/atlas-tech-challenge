@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Frota Atlas API
+  version: 1.0.0
+  description: API para gerenciamento de motoristas, veículos e viagens.
+servers:
+  - url: http://localhost:3000
+paths:
+  /motoristas:
+    post:
+      summary: Criar um novo motorista
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                cpf:
+                  type: string
+                cnh:
+                  type: object
+                  properties:
+                    numero:
+                      type: string
+                    validade:
+                      type: string
+                      format: date
+              required: [nome, cpf, cnh]
+      responses:
+        '201':
+          description: Motorista criado com sucesso
+
+    get:
+      summary: Listar todos os motoristas
+      responses:
+        '200':
+          description: Lista de motoristas retornada com sucesso
+
+  /veiculos:
+    post:
+      summary: Criar um novo veículo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                modelo:
+                  type: string
+                placa:
+                  type: string
+                tipo:
+                  type: string
+                capacidade:
+                  type: integer
+              required: [modelo, placa, tipo, capacidade]
+      responses:
+        '201':
+          description: Veículo criado com sucesso
+
+    get:
+      summary: Listar todos os veículos
+      responses:
+        '200':
+          description: Lista de veículos retornada com sucesso
+
+  /veiculos:
+    get:
+      summary: Buscar veículo por ID
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Veículo retornado com sucesso
+
+  /viagens:
+    post:
+      summary: Criar uma nova viagem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                origem:
+                  type: string
+                destino:
+                  type: string
+                dataPartida:
+                  type: string
+                  format: date-time
+                previsaoChegada:
+                  type: string
+                  format: date-time
+                motorista:
+                  type: string
+                veiculo:
+                  type: string
+              required: [origem, destino, dataPartida, previsaoChegada, motorista, veiculo]
+      responses:
+        '201':
+          description: Viagem criada com sucesso
+
+    get:
+      summary: Listar viagens
+      parameters:
+        - in: query
+          name: motorista
+          schema:
+            type: string
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de viagens retornada com sucesso

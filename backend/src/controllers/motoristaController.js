@@ -1,52 +1,69 @@
+import { redisClient } from '../utils/redis.js';
 import Motorista from '../models/Motorista.js';
+import mongoose from 'mongoose';
 
-export const criar = async (req, res) => {
+export const criarMotoristas = async (req, res) => {
   try {
     const novoMotorista = await Motorista.create(req.body);
+    const redis = await redisClient.getClient();
+    await redis.set(`motorista:${novoMotorista._id}`, JSON.stringify(novoMotorista), { EX: 3600 });
     res.status(201).json(novoMotorista);
   } catch (error) {
     res.status(400).json({ erro: error.message });
   }
 };
 
-export const listar = async (req, res) => {
+export const listarMotoristas = async (req, res) => {
   try {
-    const motoristas = await Motorista.find();
+    const { id } = req.query;
+    let motoristas;
+
+    if (id) {
+      const redis = await redisClient.getClient();
+      const cachedMotorista = await redis.get(`motorista:${id}`);
+
+      if (cachedMotorista) {
+        return res.json([JSON.parse(cachedMotorista)]);
+      }
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ erro: 'ID inválido' });
+      }
+
+      const motorista = await Motorista.findById(id);
+      if (!motorista) {
+        return res.status(404).json({ erro: 'Motorista não encontrado' });
+      }
+
+      await redis.set(`motorista:${id}`, JSON.stringify(motorista), { EX: 3600 });
+      return res.json([motorista]);
+    }
+
+    motoristas = await Motorista.find();
     res.json(motoristas);
-  } catch (error) {
-    res.status(500).json({ erro: error.message });
-  }
-};
-
-export const buscarPorId = async (req, res) => {
-  try {
-    const motorista = await Motorista.findById(req.params.id);
-    if (!motorista) return res.status(404).json({ erro: 'Motorista não encontrado' });
-    res.json(motorista);
-  } catch (error) {
-    res.status(500).json({ erro: error.message });
-  }
-};
-
-export const atualizar = async (req, res) => {
-  try {
-    const motoristaAtualizado = await Motorista.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    if (!motoristaAtualizado) return res.status(404).json({ erro: 'Motorista não encontrado' });
-    res.json(motoristaAtualizado);
   } catch (error) {
     res.status(400).json({ erro: error.message });
   }
 };
 
-export const deletar = async (req, res) => {
+export const deletarMotorista = async (req, res) => {
   try {
-    const motoristaRemovido = await Motorista.findByIdAndDelete(req.params.id);
-    if (!motoristaRemovido) return res.status(404).json({ erro: 'Motorista não encontrado' });
-    res.json({ mensagem: 'Motorista removido com sucesso' });
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ erro: 'ID inválido' });
+    }
+
+    const motoristaDeletado = await Motorista.findByIdAndDelete(id);
+
+    if (!motoristaDeletado) {
+      return res.status(404).json({ erro: 'Motorista não encontrado' });
+    }
+
+    const redis = await redisClient.getClient();
+    await redis.del(`motorista:${id}`);
+
+    res.status(200).json({ mensagem: 'Motorista deletado com sucesso' });
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }

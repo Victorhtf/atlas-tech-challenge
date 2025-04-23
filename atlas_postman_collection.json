@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "d4ad60e4-a682-46ef-afe4-4c7a7f687674",
+		"name": "Frota Atlas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28869599"
+	},
+	"item": [
+		{
+			"name": "Criar Motorista",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nome\": \"João da Silva\",\n  \"cpf\": \"12345678915\",\n  \"cnh\": {\n    \"numero\": \"CNH123456\",\n    \"validade\": \"2026-05-01\"\n  }\n}"
+				},
+				"url": "{{url_address}}:{{port}}/motoristas"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Motoristas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_address}}:{{port}}/motoristas"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Veículo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"modelo\": \"Mercedes Lotus\",\n  \"placa\": \"ZYA9920\",\n  \"tipo\": \"Caminhão\",\n  \"capacidade\": 10000\n}"
+				},
+				"url": "{{url_address}}:{{port}}/veiculos"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Veículos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_address}}:{{port}}/veiculos"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Veículo por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_address}}:{{port}}/veiculos?id={{id_veiculo}}",
+					"host": [
+						"{{url_address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"veiculos"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id_veiculo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Viagem (CNH válida)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"origem\": \"São Paulo\",\n  \"destino\": \"Rio de Janeiro\",\n  \"dataPartida\": \"2025-04-15T08:00:00.000Z\",\n  \"previsaoChegada\": \"2025-04-15T18:00:00.000Z\",\n  \"motorista\": \"{{id_motorista}}\",\n  \"veiculo\": \"{{id_veiculo}}\"\n}"
+				},
+				"url": "{{url_address}}:{{port}}/viagens"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Viagem (CNH vencida)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"origem\": \"Campinas\",\n  \"destino\": \"Belo Horizonte\",\n  \"dataPartida\": \"2025-04-16T08:00:00.000Z\",\n  \"previsaoChegada\": \"2025-04-16T18:00:00.000Z\",\n  \"motorista\": \"{{id_motorista_cnh_vencida}}\",\n  \"veiculo\": \"{{id_veiculo}}\"\n}"
+				},
+				"url": "{{url_address}}:{{port}}/viagens"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Viagens (Sem filtro)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url_address}}:{{port}}/viagens"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Viagens (filtro por motorista)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_address}}:{{port}}/viagens?motorista={{id_motorista}}",
+					"host": [
+						"{{url_address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"viagens"
+					],
+					"query": [
+						{
+							"key": "motorista",
+							"value": "{{id_motorista}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Viagem por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_address}}:{{port}}/viagens?id={{id_da_viagem}}",
+					"host": [
+						"{{url_address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"viagens"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id_da_viagem}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "url_address",
+			"value": "localhost"
+		},
+		{
+			"key": "port",
+			"value": "3000"
+		},
+		{
+			"key": "id_veiculo",
+			"value": "67ffec46ec923abb1ca53cc4"
+		},
+		{
+			"key": "id_motorista",
+			"value": "63ebf27fa94d6d3214008b87"
+		},
+		{
+			"key": "id_motorista_cnh_vencida",
+			"value": "63ebf27fa94d6d3214008b88"
+		},
+		{
+			"key": "id_da_viagem",
+			"value": "63ebf27fa94d6d3214008b89"
+		}
+	]
+}

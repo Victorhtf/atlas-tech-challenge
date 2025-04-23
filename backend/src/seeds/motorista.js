@@ -1,5 +1,3 @@
-import 'dotenv/config';
-import mongoose from 'mongoose';
 import Motorista from '../models/Motorista.js';
 
 const motoristas = [
@@ -29,22 +27,15 @@ const motoristas = [
   }
 ];
 
-const seedMotoristas = async () => {
+async function seedMotoristas() {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('Conectado ao MongoDB');
-
     await Motorista.deleteMany();
-    console.log('Coleção Motoristas limpa');
-
     const result = await Motorista.insertMany(motoristas);
     console.log(`${result.length} motoristas inseridos`);
-
-    process.exit(0);
   } catch (error) {
-    console.error('Erro ao fazer seed:', error);
+    console.error('Erro ao fazer seed de motoristsa:', error);
     process.exit(1);
   }
 };
 
-seedMotoristas();
+export default seedMotoristas;

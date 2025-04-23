@@ -1,12 +1,10 @@
 import express from 'express';
-import { criar, listar, buscarPorId, atualizar, deletar } from '../controllers/motoristaController.js';
+import { criarMotoristas, listarMotoristas, deletarMotorista } from '../controllers/motoristaController.js';
 
 const router = express.Router();
 
-router.post('/', criar);
-router.get('/', listar);
-router.get('/:id', buscarPorId);
-router.put('/:id', atualizar);
-router.delete('/:id', deletar);
+router.post('/', criarMotoristas);
+router.get('/', listarMotoristas);
+router.delete('/:id', deletarMotorista)
 
 export default router;

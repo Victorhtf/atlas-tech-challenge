@@ -41,14 +41,14 @@ A arquitetura do projeto utiliza **Docker**, **MongoDB**, **Redis** e **RabbitMQ
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo-atlas.git
-cd seu-repo-atlas
+git clone https://github.com/Victorhtf/atlas-tech-challenge.git
+cd atlas-tech-challenge
 ```
 
 ### 2. Crie os arquivos `.env`
 
 ```bash
-cp .env.example .env                     # na raiz
+cp .env.example .env                  
 cp backend/.env.example backend/.env
 cp frontend/.env.local.example frontend/.env.local
 ```

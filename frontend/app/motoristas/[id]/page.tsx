@@ -13,7 +13,9 @@ type Props = {
 }
 
 export default async function MotoristaPage({ params }: Props) {
-  const motorista = await motoristaService.getById(params.id)
+  const id = (await params)?.id
+
+  const motorista = await motoristaService.getById(id)
 
   if (!motorista) {
     notFound()
@@ -31,8 +33,8 @@ export default async function MotoristaPage({ params }: Props) {
       </div>
 
       <MotoristaDetalhes motorista={motorista} />
-
-      <MotoristaListDetails motoristaId={params.id} />
+      <MotoristaListDetails motoristaId={id} />
     </div>
   )
 }
+

@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default async function MotoristaListDetails({ motoristaId }: Props) {
-  const viagens = await viagemService.getAll({ motorista: motoristaId })
+  const viagens = await viagemService.getByMotorista(motoristaId)
 
   const formatDate = (date: string) => new Date(date).toLocaleString("pt-BR")
 
